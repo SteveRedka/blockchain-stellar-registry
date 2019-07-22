@@ -1,0 +1,62 @@
+block.js:
+  validate():
+    The `validate()` method will validate if the block has been tampered or not.
+    Been tampered means that someone from outside the application tried to change values in the block data as a consecuence the hash of the block should be different.
+    Steps:
+      [x] 1. Return a new promise to allow the method be called asynchronous. @done (19-07-22 19:45)
+      [x] 2. Save the in auxiliary variable the current hash of the block (`this` represent the block object) @done (19-07-22 19:55)
+      [x] 3. Recalculate the hash of the entire block (Use SHA256 from crypto-js library) @done (19-07-22 19:55)
+      [x] 4. Compare if the auxiliary hash value is different from the calculated one. @done (19-07-22 19:55)
+      [x] 5. Resolve true or false depending if it is valid or not. @done (19-07-22 19:55)
+      Note: to access the class values inside a Promise code you need to create an auxiliary value `let self = this;`
+  getBData():
+    Auxiliary Method to return the block body (decoding the data)
+    Steps:
+      [ ] Use hex2ascii module to decode the data
+      [ ] Because data is a javascript object use JSON.parse(string) to get the Javascript Object
+      [ ] Resolve with the data and make sure that you don't need to return the data for the `genesis block` or Reject with an error.
+
+blockchain.js:
+  _addBlock(block):
+   [ ] _addBlock(block) will store a block in the chain
+   @param {*} block
+   The method will return a Promise that will resolve with the block added or reject if an error happen during the execution.
+   You will need to check for the height to assign the `previousBlockHash`, assign the `timestamp` and the correct `height`...At the end you need to create the `block hash` and push the block into the chain array. Don't for get
+   to update the `this.height`
+   Note: the symbol `_` in the method name indicates in the javascript convention
+   that this method is a private method.
+  requestMessageOwnershipVerification(address):
+   The requestMessageOwnershipVerification(address) method will allow you  to request a message that you will use to sign it with your Bitcoin Wallet (Electrum or Bitcoin Core)
+   This is the first step before submit your Block.
+   The method return a Promise that will resolve with the message to be signed
+   @param {*} address
+   [ ] requestMessageOwnershipVerification
+  submitStar(address, message, signature, star):
+     The submitStar(address, message, signature, star) method will allow users to register a new Block with the star object into the chain. This method will resolve with the Block added or reject with an error.
+     Algorithm steps:
+         [ ] 1. Get the time from the message sent as a parameter example: `parseInt(message.split(':')[1])`
+         [ ] 2. Get the current time: `let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));`
+         [ ] 3. Check if the time elapsed is less than 5 minutes
+         [ ] 4. Veify the message with wallet address and signature: `bitcoinMessage.verify(message, address, signature)`
+         [ ] 5. Create the block and add it to the chain
+         [ ] 6. Resolve with the block added.
+     @param {*} address
+     @param {*} message
+     @param {*} signature
+     @param {*} star
+  getBlockByHash(hash):
+    This method will return a Promise that will resolve with the Block with the hash passed as a parameter.
+    Search on the chain array for the block that has the hash.
+    @param {*} hash
+    [ ] done
+  getStarsByWalletAddress (address):
+    This method will return a Promise that will resolve with an array of Stars objects existing in the chain
+    and are belongs to the owner with the wallet address passed as parameter.
+    @param {*} address
+    [ ] done
+  validateChain():
+    This method will return a Promise that will resolve with the list of errors when validating the chain.
+    [ ] done
+   Steps to validate:
+   [ ] 1. You should validate each block using `validateBlock`
+   [ ] 2. Each Block should check the with the previousBlockHash
