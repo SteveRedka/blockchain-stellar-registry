@@ -9,7 +9,6 @@ describe('Block module', () => {
   describe('"validate"', () => {
     it('returns true if Block havent been tampered with', async () => {
       const valid_block = await block.validate();
-      console.log('block') // Completely ignored
       expect(valid_block).to.eq(true)
     })
     it('returns false if Block have been tampered with', async () => {

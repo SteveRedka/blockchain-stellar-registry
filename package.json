@@ -4,7 +4,7 @@
   "description": "This project creates a Blockchain application to store data into the blocks",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/**/**.spec.js"
+    "test": "./node_modules/mocha/bin/_mocha"
   },
   "author": "Udacity - jose.morales@udacity.com",
   "license": "ISC",
