@@ -34,12 +34,12 @@ blockchain.js:
   submitStar(address, message, signature, star):
      The submitStar(address, message, signature, star) method will allow users to register a new Block with the star object into the chain. This method will resolve with the Block added or reject with an error.
      Algorithm steps:
-         [ ] 1. Get the time from the message sent as a parameter example: `parseInt(message.split(':')[1])`
-         [ ] 2. Get the current time: `let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));`
-         [ ] 3. Check if the time elapsed is less than 5 minutes
-         [ ] 4. Veify the message with wallet address and signature: `bitcoinMessage.verify(message, address, signature)`
-         [ ] 5. Create the block and add it to the chain
-         [ ] 6. Resolve with the block added.
+         [x] 1. Get the time from the message sent as a parameter example: `parseInt(message.split(':')[1])` @done (19-07-29 17:41)
+         [x] 2. Get the current time: `let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));` @done (19-07-29 17:41)
+         [x] 3. Check if the time elapsed is less than 5 minutes @done (19-07-29 17:41)
+         [x] 4. Veify the message with wallet address and signature: `bitcoinMessage.verify(message, address, signature)` @done (19-07-29 17:41)
+         [x] 5. Create the block and add it to the chain @done (19-07-29 17:41)
+         [x] 6. Resolve with the block added. @done (19-07-29 17:41)
      @param {*} address
      @param {*} message
      @param {*} signature
@@ -48,7 +48,7 @@ blockchain.js:
     This method will return a Promise that will resolve with the Block with the hash passed as a parameter.
     Search on the chain array for the block that has the hash.
     @param {*} hash
-    [ ] done
+    [x] done @done (19-07-29 18:27)
   getStarsByWalletAddress (address):
     This method will return a Promise that will resolve with an array of Stars objects existing in the chain
     and are belongs to the owner with the wallet address passed as parameter.

@@ -57,12 +57,20 @@ describe('Blockchain module', () => {
 
     it('rejects blocks with invalid signature', async () => {
       var action = blockchain.submitStar(validWallet, validMessage, 'invalidSignature', validStar)
-      expect(action).to.be.rejected
+       expect(action).to.eventually.be.rejected
     })
 
     it('submits proper blocks', async () => {
       var action = blockchain.submitStar(validWallet, validMessage, validSignature, validStar)
       await expect(action).not.to.be.rejected
+    })
+  })
+
+  describe('getBlockByHash', () => {
+    it('returns block by hash', async () => {
+      await blockchain._addBlock(block);
+      var action = await blockchain.getBlockByHash(block.hash)
+      expect(action).to.eq(block)
     })
   })
 })
