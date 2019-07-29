@@ -53,7 +53,7 @@ blockchain.js:
     This method will return a Promise that will resolve with an array of Stars objects existing in the chain
     and are belongs to the owner with the wallet address passed as parameter.
     @param {*} address
-    [ ] done
+    [x] done @done (19-07-29 18:55)
   validateChain():
     This method will return a Promise that will resolve with the list of errors when validating the chain.
     [ ] done
