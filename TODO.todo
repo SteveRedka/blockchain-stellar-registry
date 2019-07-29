@@ -18,7 +18,7 @@ block.js:
 
 blockchain.js:
   _addBlock(block):
-   [ ] _addBlock(block) will store a block in the chain
+   [x] _addBlock(block) will store a block in the chain @done (19-07-29 14:22)
    @param {*} block
    The method will return a Promise that will resolve with the block added or reject if an error happen during the execution.
    You will need to check for the height to assign the `previousBlockHash`, assign the `timestamp` and the correct `height`...At the end you need to create the `block hash` and push the block into the chain array. Don't for get
