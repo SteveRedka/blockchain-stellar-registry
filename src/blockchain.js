@@ -116,7 +116,20 @@ class Blockchain {
     submitStar(address, message, signature, star) {
         let self = this;
         return new Promise(async (resolve, reject) => {
-
+            let msgTime = parseInt(message.split(':')[1]);
+            let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
+            if((msgTime + (5*60*1000)) >= currentTime){
+                let isValid = bitcoinMessage.verify(message, address, signature);
+                if(isValid){
+                    let block = new BlockClass.Block({owner: address, star: star});
+                    let addedBlock = await self._addBlock(block);
+                    resolve(addedBlock);
+                } else {
+                    reject('Invalid signature');
+                }
+            } else {
+                reject('Date expired');
+            }
         });
     }
 

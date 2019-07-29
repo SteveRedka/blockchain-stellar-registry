@@ -39,18 +39,30 @@ describe('Blockchain module', () => {
   })
 
   describe('submitStar', () => {
-    const validWallet = '111'
+    const validWallet = '1HxEVketEJc4pSDSrjq1qo2bEzehagV9ft'
+    const validMessage = '1HxEVketEJc4pSDSrjq1qo2bEzehagV9ft:1564409335:starRegistry'
+    const validSignature = 'H9DzdK1tygUraWQwrxTWoQK7TOyo9mBSnDqGUvkHJ4jzFTqp4HHbCGgvpN2Qg+JjDndyiVzwHk5njuQTe0T+LNA='
+    const validStar = {
+      "dec": "68deg 52' 56.9",
+      "ra": "16h 29m 1.0s",
+      "story": "Lorem ipsum"
+    }
 
-    // No idea how to test wallets with invalid signatures
+    it('rejects blocks if elapsed time is too long', async () => {
+      var tenMinsAgo = (new Date()).getTime() - 10*60*1000;
+      var msg = `${validWallet}:${tenMinsAgo.toString().slice(0,-3)}:starRegistry`
+      var action = blockchain.submitStar(validWallet, msg, validSignature, validStar)
+      await expect(action).to.be.rejected
+    })
 
-    // it('rejects blocks if elapsed time is too long', async () => {
-    //   tenMinsAgo = new Date(oldDateObj.getTime() + diff*60000);
-    //   msg = `${validWallet}:${tenMinsAgo.toString().slice(0,-3)}:starRegistry`
-    //   var action = await blockchain.submitStar('foo')
-    // })
+    it('rejects blocks with invalid signature', async () => {
+      var action = blockchain.submitStar(validWallet, validMessage, 'invalidSignature', validStar)
+      expect(action).to.be.rejected
+    })
 
-    it('rejects blocks with invalid signature')
-
-    it('submits proper blocks')
+    it('submits proper blocks', async () => {
+      var action = blockchain.submitStar(validWallet, validMessage, validSignature, validStar)
+      await expect(action).not.to.be.rejected
+    })
   })
 })
