@@ -204,7 +204,29 @@ class Blockchain {
         let self = this;
         let errorLog = [];
         return new Promise(async (resolve, reject) => {
-
+            let promises = [];
+            let chainIndex = 0;
+            self.chain.forEach(async block => {
+                promises.push(block.validate());
+                if(block.height > 0) {
+                    let previousBlockHash = block.previousBlockHash;
+                    let blockHash = self.chain[chainIndex-1].hash;
+                    if(blockHash != previousBlockHash){
+                        errorLog.push(`Block #${block.height} - previous hash doesn't match.`);
+                    }
+                }
+                chainIndex++;
+            });
+            Promise.all(promises).then((results) => {
+                chainIndex = 0;
+                results.forEach(valid => {
+                    if(!valid){
+                        errorLog.push(`Block #${self.chain[chainIndex].height} has been tampered with.`);
+                    }
+                    chainIndex++;
+                });
+                resolve(errorLog);
+            }).catch((e) => { reject(e) });
         });
     }
 

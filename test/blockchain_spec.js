@@ -83,4 +83,19 @@ describe('Blockchain module', () => {
       expect(action[0].star).to.deep.eq(validStar)
     })
   })
+
+  describe('validateChain', () => {
+    it('returns empty errors on valid chain', async () => {
+      await blockchain.submitStar(validWallet, validMessage, validSignature, validStar)
+      var errors = await blockchain.validateChain()
+      expect(errors.length).to.eq(0)
+    })
+
+    it('returns array of errors', async () => {
+      await blockchain.submitStar(validWallet, validMessage, validSignature, validStar)
+      blockchain.chain[1].time = 0
+      var errors = await blockchain.validateChain()
+      expect(errors.length).to.eq(1)
+    })
+  })
 })
