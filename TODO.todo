@@ -30,7 +30,7 @@ blockchain.js:
    This is the first step before submit your Block.
    The method return a Promise that will resolve with the message to be signed
    @param {*} address
-   [ ] requestMessageOwnershipVerification
+   [x] requestMessageOwnershipVerification @done (19-07-29 15:13)
   submitStar(address, message, signature, star):
      The submitStar(address, message, signature, star) method will allow users to register a new Block with the star object into the chain. This method will resolve with the Block added or reject with an error.
      Algorithm steps:
