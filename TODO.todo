@@ -12,9 +12,9 @@ block.js:
   getBData():
     Auxiliary Method to return the block body (decoding the data)
     Steps:
-      [ ] Use hex2ascii module to decode the data
-      [ ] Because data is a javascript object use JSON.parse(string) to get the Javascript Object
-      [ ] Resolve with the data and make sure that you don't need to return the data for the `genesis block` or Reject with an error.
+      [x] Use hex2ascii module to decode the data @done (19-07-29 13:05)
+      [x] Because data is a javascript object use JSON.parse(string) to get the Javascript Object @done (19-07-29 13:05)
+      [x] Resolve with the data and make sure that you don't need to return the data for the `genesis block` or Reject with an error. @done (19-07-29 13:05)
 
 blockchain.js:
   _addBlock(block):

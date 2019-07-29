@@ -16,9 +16,9 @@ class Block {
 
     // Constructor - argument data will be the object containing the transaction data
     constructor(data){
+        this.hash = null                                            // Hash of the block
         this.height = 0;                                            // Block Height (consecutive number of each block)
         this.body = Buffer(JSON.stringify(data)).toString('hex');   // Will contain the transactions stored in the block, by default it will encode the data
-        this.hash = SHA256(this.body).toString();                   // Hash of the block
         this.time = 0;                                              // Timestamp for the Block creation
         this.previousBlockHash = null;                              // Reference to the previous Block Hash
     }
@@ -69,10 +69,14 @@ class Block {
         // Parse the data to an object to be retrieve.
 
         // Resolve with the data if the object isn't the Genesis block
-
-    }
-
-    up() {
+        var encodedBody = this.body
+        return new Promise((resolve, reject) => {
+            if (this.hash == null) {
+                reject(new Error('This is genesis block!'))
+            } else {
+                resolve(JSON.parse(hex2ascii(encodedBody)));
+            }
+        });
 
     }
 
