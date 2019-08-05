@@ -17,7 +17,8 @@ describe('Blockchain module', () => {
   });
 
   const validWallet = '1HxEVketEJc4pSDSrjq1qo2bEzehagV9ft'
-  const validMessage = '1HxEVketEJc4pSDSrjq1qo2bEzehagV9ft:1564409335:starRegistry'
+  const validTime = String((new Date()).getTime()).slice(0, -3)
+  const validMessage = `1HxEVketEJc4pSDSrjq1qo2bEzehagV9ft:${validTime}:starRegistry`
   const validSignature = 'H9DzdK1tygUraWQwrxTWoQK7TOyo9mBSnDqGUvkHJ4jzFTqp4HHbCGgvpN2Qg+JjDndyiVzwHk5njuQTe0T+LNA='
   const validStar = {
     "dec": "68deg 52' 56.9",

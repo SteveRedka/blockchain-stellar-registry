@@ -119,8 +119,8 @@ class Blockchain {
             // Validate time
             let msgTime = parseInt(message.split(':')[1]);
             let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
-            if ((msgTime + (5*60*10)) >= currentTime) {
-                reject('Date expired');
+            if ((msgTime + (5*60)) <= currentTime) {
+                reject(new Error('Date expired'));
             }
 
             // Validate signature
@@ -200,7 +200,7 @@ class Blockchain {
      * 1. You should validate each block using `validateBlock`
      * 2. Each Block should check the with the previousBlockHash
      */
-    validateChain() {
+    async validateChain() {
         let self = this;
         let errorLog = [];
         return new Promise(async (resolve, reject) => {
